@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+<div class="col-md-8">
+{% block content %}
+    {% for post in posts.items %}
+    <div class="card my-4">
+          <h5 class="card-header"><a class="mr-2" href="{{ url_for('users.user_blogs', username=post.author7.username) }}">By {{ post.author7.username }}</a></h5>
+          <div class="card-body">
+    <div class="container">
+  <div class="well">
+      <div class="media">
+        <a class="pull-left" href="#">
+          {% if post.post_file %}
+        <img class="media-object" style="margin-right: 15px" width="150" height="150" src="{{ url_for('static', filename='post_pics/' + post.post_file) }}">
+        {% endif %}
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><a class="article-title" href="{{ url_for('posts.blog', blog_id=post.id) }}">{{ post.title }}</a></h4>
+          <img class="d-flex mr-3 rounded-circle" width="50" height="50" src="{{ url_for('static', filename='profile_pics/' + post.author7.image_file) }}">
+          <p class="text-right"><!--a class="mr-2" href="{{ url_for('users.user_posts', username=post.author7.username) }}">By {{ post.author7.username }}</a--></p>
+          <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+          <p>{{ post.content| safe }}</p>
+          <br><hr>
+        </div></div>
+          
+       </div>
+    </div>
+  </div>
+</div>
+        
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-success mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-success mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}
+</div>

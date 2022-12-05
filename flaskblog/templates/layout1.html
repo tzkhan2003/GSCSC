@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://kit.fontawesome.com/5dfb9918d5.js" crossorigin="anonymous"></script>
+
+    {% if title %}
+        <title>Ecoknowme - {{ title }}</title>
+    {% else %}
+        <title>Ecoknowme</title>
+    {% endif %}
+    <link rel="icon" type="image/pnj" class="margin: 0px 0px 0px 0px" size="80x80"href="https://i.ibb.co/9G4m4n1/20210103-151310.png">
+</head>
+<body style="background-color: #b3cccc">  
+  <!--div id="loading" style="background: url('intro.gif') no-repeat center center; position: absolute;top: 0;left: 0;height: 100%;width: 100%; z-index: 9999999; "></div>
+  <script type="text/javascript">
+    function hideLoader() {
+      $('#loading').hide();
+    }
+    $(window).ready(hideLoader);
+
+    setTimeout(hideLoader, 20 * 1000);
+  </script-->
+  <div id="content">
+  <div id="myDiv" class="animate-bottom">
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color:#8585ad">
+        <div class="container">
+          <a class="navbar-brand" href="/"><img class="margin: 0px 0px 0px 0px" alt="Logo" width="30" height="40" border="0"src="https://i.ibb.co/9G4m4n1/20210103-151310.png"></a>
+          <div class="navbar-header">
+            <a href="https://ibb.co/GdvGXh2"><img class="margin: 0px 0px 0px 0px "alt="Logo" width="200" height="30" border="0"src="https://i.ibb.co/p1vNgmz/20210103-151542.png"></a>
+            <!-- <a href="https://ibb.co/GdvGXh2"><img src="https://i.ibb.co/p1vNgmz/20210103-151542.png" alt="20210103-151542" border="0" /></a> 
+            <a href="https://ibb.co/N7NgNxJ"><img src="https://i.ibb.co/9G4m4n1/20210103-151310.png" alt="20210103-151310" border="0" /></a> -->
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a title="Home" class="nav-item nav-link" href="{{ url_for('main.home') }}"><i class="fas fa-home" style="font-size:30px;margin: -2px 30px -4px 10px;"></i></a>
+              <a title=" About" class="nav-item nav-link" href="{{ url_for('main.about') }}"><i class="fas fa-eject" style="font-size:30px;margin: -2px 30px -4px 0px;"></i></a>
+              <a title="Store"class="nav-item nav-link" href="{{ url_for('posts.new_post') }}"><i class="fas fa-store" style="font-size:30px;margin: -2px 30px -4px 0px;"></i></a>
+              <a title="Donate" class="nav-link dropdown-toogle" data-togle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="{{ url_for('posts.new_post') }}"><i class="fas fa-hand-holding-medical" style="font-size:30px;margin: -2px 30px -4px 0px;"></i></a>
+              <a title="Map" class="nav-item nav-link" href="{{ url_for('posts.new_post') }}"><i class="fas fa-map-marked-alt" style="font-size:30px;margin: -2px 30px -4px 0px;"></i></a>
+          </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}"><i class="fas fa-blog" style="font-size:25px;margin: 0px 10px 0px 10px;"></i>New Post</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.account') }}"><i class="fas fa-id-badge" style="font-size:25px;margin: 0px 10px 0px 10px;"></i>Profile</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}"><i class="fas fa-sign-out-alt" style="font-size:25px;margin: 0px 10px 0px 10px;"></i>Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('users.login') }}"><i class="fas fa-sign-in-alt" style="font-size:30px;margin: 0px 10px 0px 10px;"></i>Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.register') }}"><i class="fas fa-user-plus" style="font-size:30px;margin: 0px 10px 0px 10px;"></i>Register</a>
+              {% endif %}
+              <script type="text/javascript">window.onload = date_time('date_time');</script>
+            </ul></div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container" style="background-color: #b3cccc" >
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Market Place</h3>
+            <p>Products
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+
+
+</div></div>
+</body>
+</html>
+

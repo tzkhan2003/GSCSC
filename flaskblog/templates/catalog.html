@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Sl</th>
+      <th scope="col">Name</th>
+      <th scope="col">Book No</th>
+      <th scope="col">Custom</th>
+    </tr>
+  </thead>
+  <tbody> 
+    {% for brand in brands %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{brand.brand_name}}</td>
+      <td> {{ con[loop.index-1] }}</td>
+      <td><a href="{{url_for('main.index')}}" class="btn btn-sm btn-outline-info">explor</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
